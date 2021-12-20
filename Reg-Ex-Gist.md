@@ -43,12 +43,12 @@ The RegEx shown above is an example of one that can be used to check, or validat
 >> - [Character Escapes](https://www.jmp.com/support/help/zh/15.2/index.shtml#page/jmp/escaped-characters-in-regular-expressions.shtml)  
   
       
-> *Note:  Any click-through links contained within the description sections for terms will send you to an external site.*
+> *Note: The click-through links contained within the term discussions may send you to an external site.*
 ___  
 ___
 ___
 > - ### **Literal Notation**
->>>  Literal vs. Constructor
+>>>  *Literal vs. Constructor* <br>
 >>>>  There are two different ways to store a RegEx value: Literal notation and Constructor notation. When we use literal notation, our code engine stores the value at compilation, meaning just before the program actually runs.  This can make our program run faster because the engine has already done some work evaluating the code.  Constructor notation, on the other hand, allows us to store a RegEx value which is evaluated at runtime, meaning just as the line of code is being read.  Simply put, this means that our code will run fastest if compiled values are not changed at runtime.  So, depending on the application of our program, it should be best to use literal notation when we know that the value of our RegEx will not be changing.  For the sake of this lesson, we will assume that our URL-validating RegEx is being stored through **literal** JavaScript notation, e.g.  
 `let regURL = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`  
 *Note: using literal notation requires that the regexp is wrapped in backslashes, similar to the quotation marks used to indicate a string in JavaScript.*  
@@ -56,16 +56,30 @@ ___
 ___
 ___  
 > - ### **Anchors**
->>>  `^`  
->>>  `$`
->>>>  Employing what you know of nautical anchors, you may be able to make a solid guess as to the function of anchor characters in regular expressions.  Anchors are unique in that they don't check for character matches but instead determine positioning, as a dropped anchor secures the position of a ship at sea. The computing engine needs to know **where** to check for matches of a given token, and the anchor character provides that information.  
+>>>  `^ / $` <br>
+`startLine/finishLine`
+>>>>  Employing what you know of nautical anchors, you may be able to make a solid guess as to the function of anchor characters in regular expressions.  [Anchors are unique](https://javascript.info/regexp-anchors) in that they don't check for character matches but instead determine positioning, as a dropped anchor secures the position of a ship at sea. The computing engine needs to know **where** to check for matches of a given token, and the anchor character provides that information.  
 Notice that our url-matcher expression begins with a carat symbol, `^`, and ends with a dollar sign, `$`. These are our anchors.  Essentially, they tell the engine "Here(`^`) is where the string to match starts, and here(`$`) is where the string to match ends."
 ___  
 ___
-___  
+___
+> - ### **Character Escapes**
+>>> `\`  
+*Normalizing special characters* <br>
+>>>>  Often while using regular expressions we want to match a literal character, like the plain, lowercase letter 'd'. But the letter 'd' can also be used as a special character to mean "any digit 0 through 9".  In order to use 'd' as a special 'digit' character, we simply *escape* the default literal expression of the token by including a forward slash (`\`) immediately before.  Inversely, some characters are special by default, such as the period, or dot (`.`).  The default match for this special character is ... well, basically any other character.  But, what if we need our RegEx to match a literal period or decimal in a string?  Again, this is where **character escapes** come in.  We use the escape backslash `\` to escape the dot's default expression and force it to search for a literal match.  
+Our url-matching RegEx is an excellent example of character escapes in action:  
+>>>>>  
+>>>>> - `\/` : This allows us to escape the special forward slash character, which by default demarcates the beginning of our RegEx, and search instead for the pair of literal forward slashes we need to properly match a URL.  
+>>>>> - `\d` : Here, we do not want to search for a literal 'd' letter, but instead we escape into a special 'digit' character, allowing us to accept any single digit number in our search.
+>>>>> - `\.` : As mentioned before these examples, when we want to search for a literal period, as in '.com', we have to escape the special wildcard nature of the dot, turning it into a literal character to be searched. 
+>>>  
+>>> *Note: Some special characters, like the dot (`.`) behave differently inside bracket expressions. Consult [stack overflow](https://stackoverflow.com/questions/19976018/does-a-dot-have-to-be-escaped-in-a-character-class-square-brackets-of-a-regula) for a detailed explanation of these kinds of rule exceptions.*
+___
+___
+___
 > - ### **Quantifiers**
 >>>  ![MDN Docs RegEx quantifiers table](/assets/imgs/quantifiers.jpg "Credit: MDN Web Docs")  
->>>  Image Source: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers>
+>>>  Image Source: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers> <br>
 >>>>  **Quanitifiers** are a type of special character used in RegEx syntax to tell the expression how many times to match a preceding character or group of characters.  Using the table above provided by [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Quantifiers), we can compare our url-matcher to see just how our quantifier characters are being applied:  
 >>> - `https?`  
 >>>>> The `?` here is used to say "this character should be matched either 0 or 1 time(s)".  This means that the quantifier will allow for the RegExp to accept a url that either does or does not contain the 's' after 'http', which simply signifies that the connection at that resource location is secure.  Part of the awesomeness of regular expressions is their flexibility.  We want to include this bit so that a url can pass validation given either case, 'http' or 'https'.  
@@ -88,7 +102,8 @@ ___
 ___
 ___  
 > - ### **Grouping Constructs**
->>> `()` Containers for sub-expressions
+>>> `()`  
+*Containers for sub-expressions* <br>
 >>>>  In their most straightforward usage, the `()` grouping constructs allow us to enclose a piece of our RegEx to be evaluated independently of discluded tokens.  To help clarify this, let's take a look at the following examples:
 >>>>>    
 >>>>>  1. `fo{2}\.bar`
@@ -102,18 +117,19 @@ ___
 ___
 ___  
 > - ### **Bracket Expressions**
->>>  `[]`  *Matching one character to multiple possibilities*
+>>>  `[]`  
+*Matching one character to multiple possibilities* <br>
 >>>>  The brackets surrounding a set of characters, as in `[\da-z\.-]` of our url-matcher, enclose 2 or more potential matching characters.  Let's explore this idea by taking a look at the instances of bracket expressions contained within our example RegEx: `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 >>>>>  
 >>>>>  1. `[\da-z\.-]`  
 >>>>>  2. `[a-z\.]`  
 >>>>>  3. `[\/\w \.-]`
 >>>>>  
->>>>  The most important rule to remember here is that only one of the characters included within the brackets will be matched.  The first expression includes digits 0 through 9 (`\d`), all lowercase letters (`a-z`), periods (`.`) and dashes (`-`).  So, without a following quantifier or other special character modifier, e.g. `[\da-z\.-]+`, the evaluator will match any one of these potential characters and then move on from the bracket expression.  Visit the other sections in this guide for all of the knowledge needed to decode the other two examples yourself!  
+>>>>  The most important rule to remember here is that only one of the characters included within the brackets will be matched.  The first expression includes: digits 0 through 9 (`\d`), all lowercase letters (`a-z`), periods (`.`) and dashes (`-`).  So, without a following quantifier or other special character modifier, e.g. the `+` quantifier in `[\da-z\.-]+`, the evaluator will match any one of these potential characters and then move on from the bracket expression.  Visit the other sections in this guide for all of the knowledge needed to decode the other two examples yourself!  
 >>>  
 >>>  #### Tips:  
 >>>> - Use a carat (`^`) at the beginning of the bracketed expression to negate any included characters instead.  
->>>> - To match a `]`, put it as the first character after the opening [ or the negating ^.  
+>>>> - To match a `]`, put it as the first character after the opening `[` or the negating `^`.  
 ___  
 ___
 ___
@@ -122,7 +138,7 @@ ___
 >>> ![Chart of character classes from outside source](/assets/imgs/classes.png "regular-expressions.info/posixbrackets.html")  
 Image source: <https://www.regular-expressions.info/posixbrackets.html>  
 *IMPORTANT: POSIX-type class expressions are not supported in JavaScript, the programming language our example is based in.* 
->>>>  The table above ( Copyright © 2003-2021 Jan Goyvaerts. All rights reserved. ) shows us the various character types that can be expressed by abbreviation.  Their likeness is what puts them in the same class.  `[a-z]`, for example, is a character class because all of the possible matches expressed belong to the same category: all latin-based, lower-case letters. As you can see, our url-matching example, `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`, employs the same character class twice to avoid the redundancy of literal typing.  Without character classes, large categories of characters would need be typed out individually, resulting in absurdly long, headache-inducing expressions.  
+>>>>  The table above ( Copyright © 2003-2021 Jan Goyvaerts. All rights reserved. ) shows us some of the various character types that can be expressed by abbreviation.  Their likeness is what puts them in the same class.  `[a-z]`, for example, is a character class because all of the possible matches expressed belong to the same category: all latin-based, lower-case letters. As you can see, our url-matching example, `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`, employs the same character class twice to avoid the redundancy of literal typing.  Without character classes, large categories of characters would need be typed out individually, resulting in absurdly long, headache-inducing expressions.  
 >>>>  *Praise the Class!*  <br>
 ___
 ___
@@ -139,27 +155,25 @@ ___
 ___
 ___
 > - ### **Flags**
->>> *Applying general rules*
->>>>  Flags allow us to define certain parameters that will be applied to the entire expression.  The following is a list of flags usable with any regular expression:  
+>>> *Applying general rules* <br>
+>>>>  Flags allow us to define certain parameters that will be applied to the entire expression. When using literal notation to store our regular expressions, any flags should be included just after the closing backslash.  The following is a list of flags usable with any regular expression:  
 >>>>>  
 >>>>> - `g` : The search will find all matches.  Only the first match is returned if this flag is not used.  
 >>>>> - `m` : Enables multiline mode.  
 >>>>> - `i` : Makes your search case-*in*sensitive. e.g. `[a-z]` and `[A-Z]` will find the same matches.  
 >>>>> - `s` : Enables "dotall" mode, meaning that the dot (`.`) token will also match the characters it is usually excluded from, such as the newline character `\n`.
->>>>> - `u` :  
->>>>> - `y` : 
-___
-___
-___
-> - ### **Character Escapes**
->>>
->>>>  
+>>>>> - `u` : Enables full Unicode support. (With this flag, a regexp handles 4-byte characters correctly.  Some single characters are mis-interpreted as two characters because the code for them uses 4 bytes rather than 2. For more information about this quandary: [What is a surrogate pair?](https://stackoverflow.com/questions/31986614/what-is-a-surrogate-pair))
+>>>>> - `y` : Enables 'Sticky' mode, allowing our RegEx to begin its search at a specific position in the source string.  
+>>>  
+>>> *Note: Our example RegEx doesn't use any flags, but it could!  If we were working with multiple URLs strung together, we could use the `y` flag to enable sticky mode and track the position of our regexp execution so that subsequent searches can be made starting at the next URL in the string!*
 ___
 ___
 ___
 > ## ***Summary***  
 >>>  ### Putting the Pieces Together  
+>>>>  
+>>>> 
 
-## Author
+## About the Author
 
 A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
