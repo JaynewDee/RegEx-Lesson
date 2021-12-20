@@ -187,19 +187,28 @@ ___
 
 ## ***Conclusion***
   
-  #### Friend, if you've made it all the way here from the beginning, I hope you've gathered something of value out of what I've written here.  Something that might help you on your coding journey.
+  #### Friend, if you've made it all the way here from the beginning, I hope you've gathered something of value out of what I've written here.  Something that might help you or inspire you on your coding journey.
   >#### *Keep going, keep growing, keep decoding!*
   
------ Joshua
+>>>>>>>>> ----- Joshua <br> <br>  
+
+*\*Secret\** : If you have access to the node runtime environment, you may clone this repository, navigate to the root directory of your clone, and run the command `node test.js` to test a set of mock urls and their match result given our RegEx.
 
 ## About the Author
 
 > ### *Joshua Newell Diehl*
 >>>  
->>> is a budding developer currently based in Ft Worth, Texas.  He enjoys coding, walks with his dog Margot, and referring to himself in third person like a robot.  
+>>> is a budding developer currently based in Ft Worth, Texas.  He enjoys coding, long romantic hours dead asleep, walks with his dog Margot, and *creepily* referring to himself in third person.  
 >>>>  
 >>>> Here are a few of his favorite technologies at the moment:
->>>> - [Node.js]()  
->>>> - [Materialize.css]()  
->>>> - 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+>>>> - [Node.js](https://nodejs.org/en/)  
+>>>> - [Materialize.css](https://materializecss.com/)  
+>>>> - [React.js](https://reactjs.org/)  
+>>>> - [MongoDB](https://www.mongodb.com/)  
+>>>>  
+>>  
+>>> And here is where you can reach me [||](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR 'Javascript OR Operator') review the work I've been doing.  
+>>>> ~ Let's build something.  
+>>>
+>>> [GitHub](https://github.com/JaynewDee, 'Repositories authored by Joshua Newell Diehl')  
+>>> [Email](mailto:jdiehl2236@gmail.com)
