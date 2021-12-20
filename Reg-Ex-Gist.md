@@ -88,7 +88,7 @@ ___
 (*Note: the forward slashes don't count because they are 'Escape Characters'. Navigate to the Character Escapes section to learn more*)
 Most users don't take the time to type out this bit of a url because the browser can handle this for us.  Whether or not we include this string of characters before our url, the browser usually still understands where to find the resource. However, we include this bit of the expression so that a url with or without the string 'http://' or 'https://' can still pass validation.  
 >>> - `[\da-z\.-]+`
->>>>> Our second quantifier in question, the '+', will tell the expression to match the preceding character(s) **at least** once.
+>>>>> Our second quantifier in question, the `+`, will tell the expression to match the preceding character(s) **at least** once.
 >>> - `[a-z\.]{2,6}`
 >>>>> Our quantifier here is demarcated by the curly braces.  The first number, 2, specifies the minimum quantity of the preceding characters that the string must contain, and the second number after the comma, 6, specifies the maximum quantity.  So in this case we are telling the RegEx to validate that the string can contain any lowercase letters and periods, as long as the string contains at least 2 of those characters and no more than 6.
 >>> - `[\/\w \.-]*`
@@ -163,16 +163,20 @@ ___
 >>>>> - `i` : Makes your search case-*in*sensitive. e.g. `[a-z]` and `[A-Z]` will find the same matches.  
 >>>>> - `s` : Enables "dotall" mode, meaning that the dot (`.`) token will also match the characters it is usually excluded from, such as the newline character `\n`.
 >>>>> - `u` : Enables full Unicode support. (With this flag, a regexp handles 4-byte characters correctly.  Some single characters are mis-interpreted as two characters because the code for them uses 4 bytes rather than 2. For more information about this quandary: [What is a surrogate pair?](https://stackoverflow.com/questions/31986614/what-is-a-surrogate-pair))
->>>>> - `y` : Enables 'Sticky' mode, allowing our RegEx to begin its search at a specific position in the source string.  
+>>>>> - `y` : Enables ['Sticky' mode](), allowing our RegEx to begin its search at a specific position in the source string.  
 >>>  
 >>> *Note: Our example RegEx doesn't use any flags, but it could!  If we were working with multiple URLs strung together, we could use the `y` flag to enable sticky mode and track the position of our regexp execution so that subsequent searches can be made starting at the next URL in the string!*
 ___
 ___
 ___
 > ## ***Summary***  
->>>  ### Putting the Pieces Together  
+>>>  #### *Putting the Pieces Together* 
+>>>>  ### `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`  
 >>>>  
->>>> 
+>>>> - `/^` : The backslash(`/`) introduces the expression, and the carat(`^`) anchors itself at index position -1.  
+>>>> - `(https?:\/\/)?` : Our grouping constructs open to initiate a group definition, a collection of search options bundled together to receive the same modifiers. Literal search `http` and `s?` renders the `s` optional to cover exceptions. Either `http` or `https` will match. Literal `:`.  Pair of escaped backslashes `//` match to meet URL standards. Closing construct parenthesis closes the boundary on our character group. Finally, the `?` makes the entire group of characters an optional search, and if matched cannot be matched again.  
+>>>> - `([\da-z\.-]+)` 
+
 
 ## About the Author
 
