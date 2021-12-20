@@ -46,12 +46,14 @@ The RegEx shown above is an example of one that can be used to check, or validat
 > *Note:  Any click-through links contained within the description sections for terms will send you to an external site.*
 ___  
 ___
+___
 > - ### **Literal Notation**
 >>>  Literal vs. Constructor
 >>>>  There are two different ways to store a RegEx value: Literal notation and Constructor notation. When we use literal notation, our code engine stores the value at compilation, meaning just before the program actually runs.  This can make our program run faster because the engine has already done some work evaluating the code.  Constructor notation, on the other hand, allows us to store a RegEx value which is evaluated at runtime, meaning just as the line of code is being read.  Simply put, this means that our code will run fastest if compiled values are not changed at runtime.  So, depending on the application of our program, it should be best to use literal notation when we know that the value of our RegEx will not be changing.  For the sake of this lesson, we will assume that our URL-validating RegEx is being stored through **literal** JavaScript notation, e.g.  
 `let regURL = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`  
 *Note: using literal notation requires that the regexp is wrapped in backslashes, similar to the quotation marks used to indicate a string in JavaScript.*  
 ___  
+___
 ___  
 > - ### **Anchors**
 >>>  `^`  
@@ -59,6 +61,7 @@ ___
 >>>>  Employing what you know of nautical anchors, you may be able to make a solid guess as to the function of anchor characters in regular expressions.  Anchors are unique in that they don't check for character matches but instead determine positioning, as a dropped anchor secures the position of a ship at sea. The computing engine needs to know **where** to check for matches of a given token, and the anchor character provides that information.  
 Notice that our url-matcher expression begins with a carat symbol, `^`, and ends with a dollar sign, `$`. These are our anchors.  Essentially, they tell the engine "Here(`^`) is where the string to match starts, and here(`$`) is where the string to match ends."
 ___  
+___
 ___  
 > - ### **Quantifiers**
 >>>  ![MDN Docs RegEx quantifiers table](/assets/imgs/quantifiers.jpg "Credit: MDN Web Docs")  
@@ -77,8 +80,12 @@ Most users don't take the time to type out this bit of a url because the browser
 >>> - `[\/\w \.-]*`
 >>>>>  The '*' quantifier will match 0 or more of the preceding character(s).  Our string will pass if it contains any number of words, backslashes, periods, or dashes(-).  
 >>> TLDR:  
-The computer needs to know *how many* of a character or set of characters to search for, and **Quantifiers** are how we relay that information.
+The computer needs to know *how many* of a character or set of characters to search for, and **Quantifiers** are how we relay that information.  
+>   
+> #### For further consideration:  
+>> [Lazy Quantifiers vs Greedy Quantifiers](https://stackoverflow.com/questions/2301285/what-do-lazy-and-greedy-mean-in-the-context-of-regular-expressions)
 ___  
+___
 ___  
 > - ### **Grouping Constructs**
 >>> `()` Containers for sub-expressions
@@ -92,6 +99,7 @@ ___
 >>>  
 >>> *Note: These are only the basics of grouping constructs. Once you feel confident with the essential usage explained here, try using your favorite search engine to explore the idea of "matching captured groups" in regular expressions.*
 ___  
+___
 ___  
 > - ### **Bracket Expressions**
 >>>  `[]`  *Matching one character to multiple possibilities*
@@ -108,29 +116,45 @@ ___
 >>>> - To match a `]`, put it as the first character after the opening [ or the negating ^.  
 ___  
 ___
+___
 > - ### **Character Classes**
->>>  *Matching by character type*  <br><br>
+>>>  *Matching by character type*  <br>
 >>> ![Chart of character classes from outside source](/assets/imgs/classes.png "regular-expressions.info/posixbrackets.html")  
 Image source: <https://www.regular-expressions.info/posixbrackets.html>  
 *IMPORTANT: POSIX-type class expressions are not supported in JavaScript, the programming language our example is based in.* 
 >>>>  The table above ( Copyright © 2003-2021 Jan Goyvaerts. All rights reserved. ) shows us the various character types that can be expressed by abbreviation.  Their likeness is what puts them in the same class.  `[a-z]`, for example, is a character class because all of the possible matches expressed belong to the same category: all latin-based, lower-case letters. As you can see, our url-matching example, `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`, employs the same character class twice to avoid the redundancy of literal typing.  Without character classes, large categories of characters would need be typed out individually, resulting in absurdly long, headache-inducing expressions.  
->>>>  *Praise the Class!*
-
+>>>>  *Praise the Class!*  <br>
+___
 ___
 ___
 > - ### **The OR Operator**
->>>
->>>>  
+>>> *This|That, One|Other* <br>
+>>>>  The OR operator is semantically precise and surprisingly unambiguous relative to most other RegEx concepts, functioning just about exactly as it sounds.  The vertical bar `|` is used to express that a match can be made by the characters on either of its sides.  Our URL doesn't employ the OR operator!  
+So let's consider this example instead:
+>>>>>
+>>>>>  `/(basket|foot)ball/`
+>>>>>  
+>>>> As discussed in the [Grouping Constructs](#grouping-constructs) section of this lesson, the parentheses create a closure which excludes the `ball` portion of the expression so that only the sets `basket` and `foot` will be evaluated by the OR operator.  Both strings `'basketball'` and `'football'` can be matched by this regular expression.
+___
 ___
 ___
 > - ### **Flags**
->>>
->>>>  
+>>> *Applying general rules*
+>>>>  Flags allow us to define certain parameters that will be applied to the entire expression.  The following is a list of flags usable with any regular expression:  
+>>>>>  
+>>>>> - `g` : The search will find all matches.  Only the first match is returned if this flag is not used.  
+>>>>> - `m` : Enables multiline mode.  
+>>>>> - `i` : Makes your search case-*in*sensitive. e.g. `[a-z]` and `[A-Z]` will find the same matches.  
+>>>>> - `s` : Enables "dotall" mode, meaning that the dot (`.`) token will also match the characters it is usually excluded from, such as the newline character `\n`.
+>>>>> - `u` :  
+>>>>> - `y` : 
+___
 ___
 ___
 > - ### **Character Escapes**
 >>>
 >>>>  
+___
 ___
 ___
 > ## ***Summary***  
